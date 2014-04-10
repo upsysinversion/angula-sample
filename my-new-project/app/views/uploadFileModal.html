@@ -1,0 +1,73 @@
+<div ng-controller="UploadFileModalCtrl">
+   <script type="text/ng-template" id="uploadFileModalContent.html">
+          <div ng-controller="UploadFileModalCtrl">
+          <div class="modal-header">
+              <h3>Upload a file</h3>
+          </div>
+          <div class="modal-body" ng-controller="UploadfileCtrl">
+              <div class="row">
+                  <div class="col-md-6">
+                      <label>HTTP Options:</label> <select  ng-model="httpOption" ng-options="opt for opt in httpOptions"></select>
+                  </div>
+              </div>
+              <div class="row">
+                  <div class="col-md-6">
+                      <label>Seledted HTTP Option: {{httpOption}}</label>
+                  </div>
+              </div>
+              <div class="row" ng-show="selectedFiles == null">
+                  <div class="col-md-12">
+                      <div class="well well-lg" style="text-align: center;">
+                          <div><p>Select a file</p></div>
+                          <div class="controls">
+                              <span class="btn btn-default fileinput-button">
+                                  <i class="icon-plus icon-white"></i>
+                                  <input type="file"  ng-file-select="onFileSelect($files)"
+                                         <span>Browse file</span>
+                              </span>
+                          </div>  
+                      </div>
+                  </div>
+              </div>
+              <div class="row" ng-show="selectedFiles != null && progress[0] <= 0" >
+                  <div class="col-md-12">
+                      <div class="well well-lg" style="text-align: center;">
+                          <div><p>   {{selectedFiles[0].name}} - size: {{selectedFiles[0].size}}B - type: {{selectedFiles[0].type}}</p></div>
+                          <div class="controls">
+                              <button  class="btn btn-primary"  ng-click="onStart(0)">Upload</button>
+                              <button  class="btn btn-primary" ng-click="onCancel()">Cancel</button>
+
+                          </div>  
+                      </div>
+                  </div>
+              </div>
+              <div class="row" ng-show="progress[0] > 0 && progress[0] < 100">
+                  <div class="col-md-12">
+                      <div class="well well-lg" style="text-align: center;">
+                          <progressbar ng-show="progress[0] >= 0" max="max" value="dynamic"><span style="color:black; white-space:nowrap;">{{dynamic}} %</span></progressbar>
+                      </div>
+                  </div>
+              </div>
+              <div class="row" ng-show="uploadResult.length > 0">
+                  <div class="col-md-12">
+                      <div class="alert alert-success" style="text-align: center;">
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <p><strong>{{selectedFiles[0].name}}</strong> has been uploaded.</p>
+                              </div>
+                          </div>
+                          <div class="row">
+                              <div class="col-md-12">
+                                  <button  class="btn btn-primary" ng-click="onUploadAnotherFile()">Upload another file</button>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-warning" ng-click="cancel()">Close</button>
+      </div>
+   </script>
+</div>
